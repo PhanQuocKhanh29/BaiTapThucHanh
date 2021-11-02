@@ -13,7 +13,7 @@ namespace BTL_MVC.Models.Process
             //khai bao bien
             string strResult = "", numPart, strPart;
             int intPart;
-            //strInput = PER001
+            //strInput = PER1
             //tach phan so 
             numPart = Regex.Match(strInput, @"\d+").Value;
             //tach phan chu

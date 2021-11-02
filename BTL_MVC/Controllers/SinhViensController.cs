@@ -11,120 +11,121 @@ using BTL_MVC.Models.Process;
 
 namespace BTL_MVC.Controllers
 {
-    public class PeopleController : Controller
+    public class SinhViensController : Controller
     {
         private QLDVDbContext db = new QLDVDbContext();
         private StringProcess strPro = new StringProcess();
-        // GET: People
+        // GET: SinhViens
         public ActionResult Index()
         {
-            return View(db.People.ToList());
+            return View(db.SinhViens.ToList());
         }
 
-        // GET: People/Details/5
+        // GET: SinhViens/Details/5
         public ActionResult Details(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Person person = db.People.Find(id);
-            if (person == null)
+            SinhVien sinhVien = db.SinhViens.Find(id);
+            if (sinhVien == null)
             {
                 return HttpNotFound();
             }
-            return View(person);
+            return View(sinhVien);
         }
 
-        // GET: People/Create
+        // GET: SinhViens/Create
         public ActionResult Create()
         {
             string personKey = "";
-            var model = db.People.ToList();
+            var model = db.SinhViens.ToList();
             if (model.Count == 0)
             {
-                personKey = "PER1";
+                personKey = "SV1";
             }
             else
             {
-                var PersonID = model.OrderByDescending(m => m.PersonID).FirstOrDefault().PersonID;
-                personKey = strPro.AutoGenerateKey(PersonID);
+                var SinhVienID = model.OrderByDescending(m => m.MaSV).FirstOrDefault().MaSV;
+                personKey = strPro.AutoGenerateKey(SinhVienID);
             }
             //truyen ma sinh tu dong ve view create
-            ViewBag.PerID = personKey;
+            ViewBag.SVID = personKey;
             return View();
+
         }
 
-        // POST: People/Create
+        // POST: SinhViens/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "PersonID,PersonName")] Person person)
+        public ActionResult Create([Bind(Include = "MaSV,TenSV,NamSinh,Lop,GioiTinh,DiaChi,SoDienThoai")] SinhVien sinhVien)
         {
             if (ModelState.IsValid)
             {
-                db.People.Add(person);
+                db.SinhViens.Add(sinhVien);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(person);
+            return View(sinhVien);
         }
 
-        // GET: People/Edit/5
+        // GET: SinhViens/Edit/5
         public ActionResult Edit(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Person person = db.People.Find(id);
-            if (person == null)
+            SinhVien sinhVien = db.SinhViens.Find(id);
+            if (sinhVien == null)
             {
                 return HttpNotFound();
             }
-            return View(person);
+            return View(sinhVien);
         }
 
-        // POST: People/Edit/5
+        // POST: SinhViens/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "PersonID,PersonName")] Person person)
+        public ActionResult Edit([Bind(Include = "MaSV,TenSV,NamSinh,Lop,GioiTinh,DiaChi,SoDienThoai")] SinhVien sinhVien)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(person).State = EntityState.Modified;
+                db.Entry(sinhVien).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(person);
+            return View(sinhVien);
         }
 
-        // GET: People/Delete/5
+        // GET: SinhViens/Delete/5
         public ActionResult Delete(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Person person = db.People.Find(id);
-            if (person == null)
+            SinhVien sinhVien = db.SinhViens.Find(id);
+            if (sinhVien == null)
             {
                 return HttpNotFound();
             }
-            return View(person);
+            return View(sinhVien);
         }
 
-        // POST: People/Delete/5
+        // POST: SinhViens/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            Person person = db.People.Find(id);
-            db.People.Remove(person);
+            SinhVien sinhVien = db.SinhViens.Find(id);
+            db.SinhViens.Remove(sinhVien);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
