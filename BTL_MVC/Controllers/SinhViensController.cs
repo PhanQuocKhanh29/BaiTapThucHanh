@@ -39,19 +39,19 @@ namespace BTL_MVC.Controllers
         // GET: SinhViens/Create
         public ActionResult Create()
         {
-            string personKey = "";
+            string SVKey = "";
             var model = db.SinhViens.ToList();
             if (model.Count == 0)
             {
-                personKey = "SV1";
+                SVKey = "SV1";
             }
             else
             {
                 var SinhVienID = model.OrderByDescending(m => m.MaSV).FirstOrDefault().MaSV;
-                personKey = strPro.AutoGenerateKey(SinhVienID);
+                SVKey = strPro.AutoGenerateKey(SinhVienID);
             }
             //truyen ma sinh tu dong ve view create
-            ViewBag.SVID = personKey;
+            ViewBag.SVID = SVKey;
             return View();
 
         }
